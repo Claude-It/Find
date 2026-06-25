@@ -1,0 +1,357 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Fÿnd design system — TWO ownable themes.
+ *
+ *   data-theme="liquid"   → warm "Liquid Glass" (default look)
+ *   data-theme="foundry"  → cool "Foundry" web3 look (cyan / magenta neon)
+ *
+ * The active theme is set as a `data-theme` attribute on <html> by the
+ * ThemeProvider (and a no-flash inline script in <head>). :root holds the
+ * default (liquid) values so the very first paint is always correct.
+ *
+ * @theme inline maps the CSS custom properties to Tailwind utilities
+ * (bg-primary, text-muted-foreground, etc). The values themselves live in the
+ * theme blocks below and resolve per the active data-theme via the cascade.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+
+  --color-ember: var(--ember);
+  --color-ember-glow: var(--ember-glow);
+  --color-mint: var(--mint);
+  --color-violet: var(--violet);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Only map font-sans → Tailwind. Display/mono are applied via the
+     .font-display / .text-display helper classes below so they don't collide
+     with generated utilities. */
+  --font-sans: var(--font-sans-theme);
+}
+
+/* ============================================================= *
+ *  THEME: liquid (default)  — warm ember / mint / violet
+ * ============================================================= */
+:root,
+[data-theme="liquid"] {
+  --radius: 1rem;
+
+  --background: oklch(0.16 0.012 60);
+  --foreground: oklch(0.97 0.01 80);
+
+  --card: oklch(0.2 0.014 60);
+  --card-foreground: oklch(0.97 0.01 80);
+
+  --popover: oklch(0.2 0.014 60);
+  --popover-foreground: oklch(0.97 0.01 80);
+
+  --primary: oklch(0.82 0.17 70);
+  --primary-foreground: oklch(0.18 0.02 60);
+
+  --secondary: oklch(0.26 0.015 60);
+  --secondary-foreground: oklch(0.97 0.01 80);
+
+  --muted: oklch(0.24 0.012 60);
+  --muted-foreground: oklch(0.68 0.02 70);
+
+  --accent: oklch(0.3 0.025 65);
+  --accent-foreground: oklch(0.97 0.01 80);
+
+  --destructive: oklch(0.62 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  --border: oklch(0.32 0.012 60 / 0.55);
+  --input: oklch(0.32 0.012 60 / 0.6);
+  --ring: oklch(0.82 0.17 70);
+
+  --ember: oklch(0.82 0.17 70);
+  --ember-glow: oklch(0.88 0.18 85);
+  --mint: oklch(0.84 0.13 165);
+  --violet: oklch(0.72 0.16 295);
+
+  --gradient-ember: radial-gradient(circle at 30% 20%, oklch(0.82 0.17 70 / 0.35), transparent 60%);
+  --gradient-mint: radial-gradient(circle at 70% 80%, oklch(0.84 0.13 165 / 0.28), transparent 60%);
+  --gradient-violet: radial-gradient(circle at 80% 10%, oklch(0.72 0.16 295 / 0.25), transparent 55%);
+  --shadow-glow: 0 30px 80px -30px oklch(0.82 0.17 70 / 0.45);
+  --shadow-card: 0 1px 0 0 oklch(1 0 0 / 0.04) inset, 0 30px 60px -30px oklch(0 0 0 / 0.5);
+
+  --font-sans-theme: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-display-theme: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-mono-theme: "Geist Mono", ui-monospace, monospace;
+
+  /* chart + sidebar (used by shadcn primitives) */
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.2 0.014 60);
+  --sidebar-foreground: oklch(0.97 0.01 80);
+  --sidebar-primary: oklch(0.82 0.17 70);
+  --sidebar-primary-foreground: oklch(0.18 0.02 60);
+  --sidebar-accent: oklch(0.26 0.015 60);
+  --sidebar-accent-foreground: oklch(0.97 0.01 80);
+  --sidebar-border: oklch(0.32 0.012 60 / 0.55);
+  --sidebar-ring: oklch(0.82 0.17 70);
+}
+
+/* ============================================================= *
+ *  THEME: foundry  — cool slate / cyan / magenta web3 neon
+ * ============================================================= */
+[data-theme="foundry"] {
+  --radius: 0.625rem;
+
+  --background: oklch(0.08 0.015 250);
+  --foreground: oklch(0.97 0.01 250);
+
+  --card: oklch(0.12 0.02 250);
+  --card-foreground: oklch(0.97 0.01 250);
+
+  --popover: oklch(0.12 0.02 250);
+  --popover-foreground: oklch(0.97 0.01 250);
+
+  --primary: oklch(0.78 0.16 195);
+  --primary-foreground: oklch(0.12 0.03 250);
+
+  --secondary: oklch(0.2 0.03 250);
+  --secondary-foreground: oklch(0.97 0.01 250);
+
+  --muted: oklch(0.18 0.02 250);
+  --muted-foreground: oklch(0.65 0.03 250);
+
+  --accent: oklch(0.72 0.18 320);
+  --accent-foreground: oklch(0.97 0.01 250);
+
+  --destructive: oklch(0.62 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.78 0.16 195);
+
+  /* map the "warm" tokens to the foundry palette so any shared refs still read */
+  --ember: oklch(0.78 0.16 195);
+  --ember-glow: oklch(0.85 0.14 195);
+  --mint: oklch(0.8 0.15 175);
+  --violet: oklch(0.72 0.18 320);
+
+  --gradient-ember: radial-gradient(circle at 30% 20%, oklch(0.78 0.16 195 / 0.35), transparent 60%);
+  --gradient-mint: radial-gradient(circle at 70% 80%, oklch(0.8 0.15 175 / 0.28), transparent 60%);
+  --gradient-violet: radial-gradient(circle at 80% 10%, oklch(0.72 0.18 320 / 0.3), transparent 55%);
+  --shadow-glow: 0 30px 80px -30px oklch(0.78 0.16 195 / 0.5);
+  --shadow-card: 0 1px 0 0 oklch(1 0 0 / 0.06) inset, 0 30px 60px -30px oklch(0 0 0 / 0.6);
+
+  --font-sans-theme: "Inter", system-ui, sans-serif;
+  --font-display-theme: "Space Grotesk", "Inter", sans-serif;
+  --font-mono-theme: ui-monospace, "SFMono-Regular", monospace;
+
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.12 0.02 250);
+  --sidebar-foreground: oklch(0.97 0.01 250);
+  --sidebar-primary: oklch(0.78 0.16 195);
+  --sidebar-primary-foreground: oklch(0.12 0.03 250);
+  --sidebar-accent: oklch(0.2 0.03 250);
+  --sidebar-accent-foreground: oklch(0.97 0.01 250);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.78 0.16 195);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html,
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans-theme);
+    overflow-x: hidden;
+  }
+  body {
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--ember);
+    color: var(--background);
+  }
+}
+
+/* ============================================================= *
+ *  Shared display type
+ * ============================================================= */
+.font-display {
+  font-family: var(--font-display-theme);
+  letter-spacing: -0.03em;
+}
+.text-display {
+  font-family: var(--font-display-theme);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+/* ============================================================= *
+ *  Glass / radial surfaces — definitions differ per theme
+ * ============================================================= */
+
+/* liquid (default) */
+.glass-panel {
+  background: linear-gradient(
+    135deg,
+    oklch(1 0 0 / 0.06) 0%,
+    oklch(1 0 0 / 0.02) 50%,
+    oklch(1 0 0 / 0.05) 100%
+  );
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid oklch(1 0 0 / 0.08);
+  box-shadow:
+    0 1px 0 0 oklch(1 0 0 / 0.08) inset,
+    0 -1px 0 0 oklch(0 0 0 / 0.3) inset,
+    0 30px 80px -30px oklch(0 0 0 / 0.6);
+}
+.radial-card {
+  position: relative;
+  background:
+    radial-gradient(circle at var(--rx, 20%) var(--ry, 0%), oklch(0.82 0.17 70 / 0.1), transparent 55%),
+    radial-gradient(circle at 90% 100%, oklch(0.84 0.13 165 / 0.06), transparent 50%),
+    var(--color-card);
+  border: 1px solid oklch(1 0 0 / 0.06);
+  box-shadow: var(--shadow-card);
+}
+
+/* foundry overrides */
+[data-theme="foundry"] .glass-panel {
+  background: linear-gradient(135deg, oklch(1 0 0 / 0.08), oklch(1 0 0 / 0.02));
+  backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid oklch(1 0 0 / 0.12);
+  box-shadow:
+    inset 0 1px 0 oklch(1 0 0 / 0.1),
+    0 30px 60px -20px oklch(0 0 0 / 0.5);
+}
+[data-theme="foundry"] .radial-card {
+  background:
+    radial-gradient(circle at var(--rx, 20%) var(--ry, 0%), oklch(0.78 0.16 195 / 0.18), transparent 55%),
+    radial-gradient(circle at 100% 100%, oklch(0.72 0.18 320 / 0.15), transparent 50%),
+    oklch(0.12 0.02 250 / 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid oklch(1 0 0 / 0.08);
+}
+
+/* foundry ambient glow */
+.radial-glow {
+  background:
+    radial-gradient(ellipse at top, oklch(0.78 0.16 195 / 0.25), transparent 60%),
+    radial-gradient(ellipse at bottom right, oklch(0.72 0.18 320 / 0.2), transparent 60%);
+}
+
+/* ============================================================= *
+ *  Roller button base (per-letter roll mechanism is injected by the
+ *  RollerButton components themselves via a scoped <style> tag).
+ * ============================================================= */
+.roller-btn {
+  position: relative;
+}
+
+/* ============================================================= *
+ *  Liquid texture: grain + blobs + marquee
+ * ============================================================= */
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+@keyframes blob-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(60px, -40px) scale(1.15); }
+  66% { transform: translate(-40px, 30px) scale(0.9); }
+}
+@keyframes blob-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-80px, 60px) scale(1.2); }
+}
+@keyframes blob-c {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(50px, 80px) scale(0.85); }
+}
+.blob-a { animation: blob-a 18s ease-in-out infinite; }
+.blob-b { animation: blob-b 22s ease-in-out infinite; }
+.blob-c { animation: blob-c 26s ease-in-out infinite; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee { animation: marquee 40s linear infinite; }
+
+/* ============================================================= *
+ *  Misc animations
+ * ============================================================= */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+}
+.animate-float-slow { animation: float-slow 8s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .blob-a, .blob-b, .blob-c, .marquee, .animate-float-slow {
+    animation: none !important;
+  }
+}
